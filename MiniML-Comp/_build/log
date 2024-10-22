@@ -1,0 +1,94 @@
+# dune build
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /Users/tgu/.cache/dune/db
+# Workspace root: /Users/tgu/Desktop/MPRI/compilation/MiniML-Comp
+# Auto-detected concurrency: 8
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; installed_env =
+#      map
+#        { "INSIDE_DUNE" :
+#            "/Users/tgu/Desktop/MPRI/compilation/MiniML-Comp/_build/default"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; instrument_with = []
+#  }
+$ /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -config > /var/folders/jp/zwhr24js70d45y4bkq18rf4w0000gn/T/dune_178fb4_output
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamllex -q -o lexer.ml lexer.mll)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamllex -q -o implexer.ml implexer.mll)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/menhir --explain --dump parser.mly --base parser --infer-write-query parser__mock.ml.mock)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/menhir --explain --dump impparser.mly --base impparser --infer-write-query impparser__mock.ml.mock)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl minimlc.ml) > _build/default/.minimlc.eobjs/dune__exe__Minimlc.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl impc.ml) > _build/default/.minimlc.eobjs/dune__exe__Impc.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl impparser__mock.ml.mock) > _build/default/.minimlc.eobjs/impparser__mock.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl imppp.ml) > _build/default/.minimlc.eobjs/dune__exe__Imppp.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl clj2imp.ml) > _build/default/.minimlc.eobjs/dune__exe__Clj2imp.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl parser__mock.ml.mock) > _build/default/.minimlc.eobjs/parser__mock.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl imp2mips.ml) > _build/default/.minimlc.eobjs/dune__exe__Imp2mips.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl lexer.ml) > _build/default/.minimlc.eobjs/dune__exe__Lexer.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl mini2clj.ml) > _build/default/.minimlc.eobjs/dune__exe__Mini2clj.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl implexer.ml) > _build/default/.minimlc.eobjs/dune__exe__Implexer.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl imp.ml) > _build/default/.minimlc.eobjs/dune__exe__Imp.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl ops.ml) > _build/default/.minimlc.eobjs/dune__exe__Ops.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl clj.ml) > _build/default/.minimlc.eobjs/dune__exe__Clj.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl mips.ml) > _build/default/.minimlc.eobjs/dune__exe__Mips.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl miniml.ml) > _build/default/.minimlc.eobjs/dune__exe__Miniml.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -o .minimlc.eobjs/byte/dune__exe.cmo -c -impl .minimlc.eobjs/dune__exe.ml-gen)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Ops.cmo -c -impl ops.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Miniml.cmo -c -impl miniml.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Imp.cmo -c -impl imp.ml)
+$ (cd _build/.sandbox/3db44c29d11a4647ae437c074907c200/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -I .minimlc.eobjs/byte -open Dune__exe -short-paths -i -impl impparser__mock.ml.mock) > _build/.sandbox/3db44c29d11a4647ae437c074907c200/default/impparser__mock.mli.inferred
+$ (cd _build/.sandbox/b16186615ff3d9d1085cd9712f5c4838/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -I .minimlc.eobjs/byte -open Dune__exe -short-paths -i -impl parser__mock.ml.mock) > _build/.sandbox/b16186615ff3d9d1085cd9712f5c4838/default/parser__mock.mli.inferred
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/menhir --explain --dump impparser.mly --base impparser --infer-read-reply impparser__mock.mli.inferred)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -intf impparser.mli) > _build/default/.minimlc.eobjs/dune__exe__Impparser.intf.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/menhir --explain --dump parser.mly --base parser --infer-read-reply parser__mock.mli.inferred)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -intf parser.mli) > _build/default/.minimlc.eobjs/dune__exe__Parser.intf.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl impparser.ml) > _build/default/.minimlc.eobjs/dune__exe__Impparser.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Impparser.cmi -c -intf impparser.mli)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamldep.opt -modules -impl parser.ml) > _build/default/.minimlc.eobjs/dune__exe__Parser.impl.d
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Clj.cmo -c -impl clj.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Implexer.cmo -c -impl implexer.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Mips.cmo -c -impl mips.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Parser.cmi -c -intf parser.mli)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Imppp.cmo -c -impl imppp.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Clj2imp.cmo -c -impl clj2imp.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Mini2clj.cmo -c -impl mini2clj.ml)
+> File "mini2clj.ml", line 13, characters 6-15:
+> 13 |   let new_fname =
+>            ^^^^^^^^^
+> Warning 26 [unused-var]: unused variable new_fname.
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Clj.cmx -c -impl clj.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Ops.cmx -c -impl ops.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Imp.cmx -c -impl imp.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Miniml.cmx -c -impl miniml.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o .minimlc.eobjs/native/dune__exe.cmx -c -impl .minimlc.eobjs/dune__exe.ml-gen)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Implexer.cmx -c -impl implexer.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Mips.cmx -c -impl mips.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Lexer.cmo -c -impl lexer.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Imp2mips.cmo -c -impl imp2mips.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Minimlc.cmo -c -impl minimlc.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlc.opt -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Impc.cmo -c -impl impc.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Imppp.cmx -c -impl imppp.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Mini2clj.cmx -c -impl mini2clj.ml)
+> File "mini2clj.ml", line 13, characters 6-15:
+> 13 |   let new_fname =
+>            ^^^^^^^^^
+> Warning 26 [unused-var]: unused variable new_fname.
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Lexer.cmx -c -impl lexer.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Clj2imp.cmx -c -impl clj2imp.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Minimlc.cmx -c -impl minimlc.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Impparser.cmx -c -impl impparser.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Impc.cmx -c -impl impc.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Imp2mips.cmx -c -impl imp2mips.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Parser.cmx -c -impl parser.ml)
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -o minimlc.exe .minimlc.eobjs/native/dune__exe.cmx .minimlc.eobjs/native/dune__exe__Ops.cmx .minimlc.eobjs/native/dune__exe__Clj.cmx .minimlc.eobjs/native/dune__exe__Imp.cmx .minimlc.eobjs/native/dune__exe__Clj2imp.cmx .minimlc.eobjs/native/dune__exe__Imppp.cmx .minimlc.eobjs/native/dune__exe__Miniml.cmx .minimlc.eobjs/native/dune__exe__Parser.cmx .minimlc.eobjs/native/dune__exe__Lexer.cmx .minimlc.eobjs/native/dune__exe__Mini2clj.cmx .minimlc.eobjs/native/dune__exe__Minimlc.cmx)
+# Promoting "_build/default/minimlc.exe" to "minimlc.exe"
+$ (cd _build/default && /Users/tgu/.opam/coq-8.18.0/bin/ocamlopt.opt -g -o impc.exe .minimlc.eobjs/native/dune__exe.cmx .minimlc.eobjs/native/dune__exe__Ops.cmx .minimlc.eobjs/native/dune__exe__Imp.cmx .minimlc.eobjs/native/dune__exe__Mips.cmx .minimlc.eobjs/native/dune__exe__Imp2mips.cmx .minimlc.eobjs/native/dune__exe__Impparser.cmx .minimlc.eobjs/native/dune__exe__Implexer.cmx .minimlc.eobjs/native/dune__exe__Impc.cmx)
+# Promoting "_build/default/impc.exe" to "impc.exe"
