@@ -1,0 +1,30 @@
+var retour;
+var espace;
+
+function main(arg) {
+  var i;
+  i = 0;
+  retour = 10;
+  espace = 32;
+  while (i < 4) {
+    if (i < 2){
+      putchar(46);
+      print(retour);
+    }
+    else{
+      putchar(35);
+      print(espace);
+    }
+    i = i+1;
+  }
+}
+
+function print_var(n) {
+  var x;
+  x = n;
+  putchar(x);
+}
+
+function print(n){
+  putchar(n);
+}

@@ -32,6 +32,11 @@ type raw_alloc =
 let lscan_alloc nb_regs fdef =
   let live_intervals = Liveness.liveness_intervals_from_liveness fdef in
   
+  List.iter (fun (var, (start, end_)) ->
+    Printf.printf "Variable: %s, Live Interval: [%d, %d]\n" var start end_;
+  ) live_intervals;
+   
+  
   let alloc = Hashtbl.create (List.length fdef.locals) in
   let active = ref [] in
   let free = ref (List.init nb_regs (fun i -> i)) in

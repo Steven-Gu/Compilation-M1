@@ -43,6 +43,7 @@ and max_instr_list = function
 
 let from_imp_fdef fdef =
   (* Printf.printf "numbering %s..." Imp.(fdef.name); *)
+  
   let cpt = ref (-1) in
   let new_lbl () = incr cpt; !cpt in
   let rec from_imp_instr = function
@@ -62,6 +63,11 @@ let from_imp_fdef fdef =
   in
   let code = from_imp_list Imp.(fdef.code) in
   (* Printf.printf " ok, max %d\n" (max_instr_list code); *)
+  (*
+  Printf.printf "Processing function: %s\n" fdef.name;
+  Printf.printf "Params: %s\n" (String.concat ", " fdef.params);
+  Printf.printf "Locals: %s\n" (String.concat ", " fdef.locals);
+  *)
   { name = Imp.(fdef.name);
     code = code;
     params = Imp.(fdef.params);
