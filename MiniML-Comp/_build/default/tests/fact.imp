@@ -1,0 +1,32 @@
+var call_result_2;
+var closure_1;
+var fact_0;
+
+function fun_0(param_fact,closure) {
+  var closure_0;
+
+  closure_0 = malloc((1*4));
+  closure_0[0] = &fun_1;
+  return(closure_0);
+}
+
+function fun_1(param_n,closure) {
+  var if_result_1;
+  var call_result_0;
+
+  if ((param_n<=1)) {
+    if_result_1 = 1;
+  } else {
+    call_result_0 = (*fact[0])((param_n-1),fact);
+    if_result_1 = (param_n*call_result_0);
+  }
+  return(if_result_1);
+}
+
+main {
+  closure_1 = malloc((1*4));
+  closure_1[0] = &fun_0;
+  fact_0 = closure_1;
+  call_result_2 = (*fact_0[0])(6,fact_0);
+  print_int(call_result_2);
+}

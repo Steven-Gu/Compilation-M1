@@ -58,12 +58,58 @@ let tr_expr e env =
 
       | Clj.Var(v) ->
          [], tr_var v env
-          
+
+      | Clj.Unop(op, e) ->
+         let is, te = tr_expr e env in
+         is, Imp.Unop(op, te)
+         
       | Clj.Binop(op, e1, e2) ->
          let is1, te1 = tr_expr e1 env in
          let is2, te2 = tr_expr e2 env in
          is1 @ is2, Imp.Binop(op, te1, te2)
-          
+
+      | Clj.MkClj(fname, vars) ->
+         let lv = new_var "closure" in
+         let closure_size = List.length vars + 1 in
+         let alloc_instr = Imp.Set(lv, Imp.array_create (Imp.Int closure_size)) in
+         let set_fname = Imp.array_set (Imp.Var lv) (Imp.Int 0) (Imp.Addr fname) in
+         let set_vars =
+            List.mapi
+               (fun i var -> Imp.array_set (Imp.Var lv) (Imp.Int (i + 1)) (tr_var var env))
+               vars
+         in
+         Imp.(
+            alloc_instr :: set_fname :: set_vars, Imp.Var lv)
+   
+      | Clj.App(f, arg) ->
+         let is1, tf = tr_expr f env in
+         let is2, targ = tr_expr arg env in
+         let lv_result = new_var "call_result" in
+         let call_instr =
+            match tf with
+            | Imp.Var fname when String.starts_with ~prefix:"fun_" fname ->
+               Imp.Call(fname, [targ])
+            | Imp.Var closure_name -> 
+               Imp.PCall(
+                  Imp.Deref(Imp.array_get (Imp.Var closure_name) (Imp.Int 0)), 
+                  [targ; Imp.Var closure_name]
+               )
+            | _ ->
+               failwith "Invalid function application: not a closure or direct function"
+         in
+         Imp.(is1 @ is2 @ [Set(lv_result, call_instr)], Var lv_result)
+           
+           
+
+      | Clj.If(cond, e1, e2) ->
+         let is1, tcond = tr_expr cond env in
+         let is2, te1 = tr_expr e1 env in
+         let is3, te2 = tr_expr e2 env in
+         let lv = new_var "if_result" in
+         Imp.(
+            is1 @ [If(tcond, is2 @ [Set(lv, te1)], is3 @ [Set(lv, te2)])],
+            Var lv)
+
       | Clj.Let(x, e1, e2) ->
          (* Creation of a unique name for 'x', to be used instead of 'x'
             in the expression e2. *)
@@ -71,13 +117,20 @@ let tr_expr e env =
          let is1, t1 = tr_expr e1 env in
          let is2, t2 = tr_expr e2 (STbl.add x lv env) in
          Imp.(is1 @ [Set(lv, t1)] @ is2, t2)
-
+      
+      | Clj.Fix(f, body) ->
+         let lv = new_var f in
+         let is_body, tbody = tr_expr body (STbl.add f lv env) in
+         Imp.(is_body @ [Set(lv, tbody)], Var lv)
+      
+      
       | _ ->
          failwith "todo"
 
   in
     
   let is, te = tr_expr e env in
+  
   is, te, !vars
 
     

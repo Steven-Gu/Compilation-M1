@@ -1,0 +1,27 @@
+var call_result_4;
+var call_result_3;
+var g_2;
+var closure_1;
+var f_0;
+
+function fun_0(param_x,closure) {
+  var closure_0;
+
+  closure_0 = malloc((1*4));
+  closure_0[0] = &fun_1;
+  return(closure_0);
+}
+
+function fun_1(param_y,closure) {
+  return((x*param_y));
+}
+
+main {
+  closure_1 = malloc((1*4));
+  closure_1[0] = &fun_0;
+  f_0 = closure_1;
+  call_result_3 = (*f_0[0])(6,f_0);
+  g_2 = call_result_3;
+  call_result_4 = (*g_2[0])(7,g_2);
+  print_int(call_result_4);
+}

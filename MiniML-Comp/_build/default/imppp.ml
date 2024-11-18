@@ -26,7 +26,7 @@ let pp_binop: binop -> string = function
   | Or  -> "||"
   | Pair -> ","
   
-let rec pp_expression: expression -> string = function
+  let rec pp_expression: expression -> string = function
   | Int(n) -> string_of_int n
   | Bool(b) -> if b then "true" else "false"
   | Var(x) -> x
