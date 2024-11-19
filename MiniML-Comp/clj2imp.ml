@@ -59,9 +59,30 @@ let tr_expr e env =
       | Clj.Var(v) ->
          [], tr_var v env
 
+      | Clj.Unop(Fst, e) ->
+         let is, te = tr_expr e env in
+         is, Imp.array_get te (Imp.Int (1))
+
+      | Clj.Unop(Snd, e) ->
+         let is, te = tr_expr e env in
+         is, Imp.array_get te (Imp.Int (2))
+
       | Clj.Unop(op, e) ->
          let is, te = tr_expr e env in
          is, Imp.Unop(op, te)
+      
+      | Clj.Binop(Pair, e1, e2) ->
+         let is1, te1 = tr_expr e1 env in
+         let is2, te2 = tr_expr e2 env in
+         let var = new_var "pair" in
+         let instrs = 
+            [
+            Imp.Set(var, Imp.array_create (Imp.Int 3));
+            Imp.Write(Imp.Var var, Imp.Int 12);
+            Imp.array_set (Imp.Var var) (Imp.Int 1) te1;
+            Imp.array_set (Imp.Var var) (Imp.Int 2) te2;
+            ] in
+         is1 @ is2 @ instrs, Imp.Var var
          
       | Clj.Binop(op, e1, e2) ->
          let is1, te1 = tr_expr e1 env in

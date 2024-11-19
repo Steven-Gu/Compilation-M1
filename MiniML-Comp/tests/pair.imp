@@ -1,0 +1,18 @@
+var pair_3;
+var b_2;
+var pair_1;
+var a_0;
+
+main {
+  pair_1 = malloc((3*4));
+  *pair_1 = 12;
+  pair_1[1] = 24;
+  pair_1[2] = 42;
+  a_0 = pair_1;
+  pair_3 = malloc((3*4));
+  *pair_3 = 12;
+  pair_3[1] = a_0;
+  pair_3[2] = 1;
+  b_2 = pair_3;
+  print_int(*(b_2[1]+(2*4)));
+}
