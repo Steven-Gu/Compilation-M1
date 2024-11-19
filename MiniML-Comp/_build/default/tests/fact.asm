@@ -18,7 +18,8 @@ init_end:
 	addi $sp, $sp, 4
 	la $t1, closure_1
 	sw $t0, 0($t1)
-	la $t0, fun_0
+	la $t0, closure_2
+	lw $t0, 0($t0)
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
 	li $t0, 4
@@ -38,15 +39,20 @@ init_end:
 	addi $sp, $sp, 4
 	lw $t1, 0($sp)
 	sw $t1, 0($t0)
-	la $t0, closure_1
-	lw $t0, 0($t0)
-	la $t1, fact_0
-	sw $t0, 0($t1)
-	la $t0, fact_0
-	lw $t0, 0($t0)
+	li $t0, 4
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
-	li $t0, 6
+	li $t0, 2
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	mul $t0, $t0, $t1
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	jal malloc
+	addi $sp, $sp, 4
+	la $t1, closure_2
+	sw $t0, 0($t1)
+	la $t0, fun_0
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
 	li $t0, 4
@@ -58,18 +64,51 @@ init_end:
 	mul $t0, $t0, $t1
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
-	la $t0, fact_0
+	la $t0, closure_2
 	lw $t0, 0($t0)
 	addi $sp, $sp, 4
 	lw $t1, 0($sp)
 	add $t0, $t0, $t1
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	sw $t1, 0($t0)
+	la $t0, closure_1
+	lw $t0, 0($t0)
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	li $t0, 4
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	li $t0, 1
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	mul $t0, $t0, $t1
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	la $t0, closure_2
+	lw $t0, 0($t0)
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	add $t0, $t0, $t1
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	sw $t1, 0($t0)
+	la $t0, closure_1
+	lw $t0, 0($t0)
+	la $t1, fact_0
+	sw $t0, 0($t1)
+	la $t0, fact_0
+	lw $t0, 0($t0)
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	li $t0, 6
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	la $t0, fact_0
+	lw $t0, 0($t0)
 	lw $t0, 0($t0)
 	jalr $t0
 	addi $sp, $sp, 8
-	la $t1, call_result_2
-	sw $t0, 0($t1)
-	la $t0, call_result_2
-	lw $t0, 0($t0)
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
 	jal print_int
@@ -104,54 +143,6 @@ fun_0:
 	subi $sp, $sp, 4
 	addi $fp, $sp, 8
 	addi $sp, $sp, -4
-	li $t0, 4
-	sw $t0, 0($sp)
-	subi $sp, $sp, 4
-	li $t0, 1
-	addi $sp, $sp, 4
-	lw $t1, 0($sp)
-	mul $t0, $t0, $t1
-	sw $t0, 0($sp)
-	subi $sp, $sp, 4
-	jal malloc
-	addi $sp, $sp, 4
-	sw $t0, -8($fp)
-	la $t0, fun_1
-	sw $t0, 0($sp)
-	subi $sp, $sp, 4
-	li $t0, 4
-	sw $t0, 0($sp)
-	subi $sp, $sp, 4
-	li $t0, 0
-	addi $sp, $sp, 4
-	lw $t1, 0($sp)
-	mul $t0, $t0, $t1
-	sw $t0, 0($sp)
-	subi $sp, $sp, 4
-	lw $t0, -8($fp)
-	addi $sp, $sp, 4
-	lw $t1, 0($sp)
-	add $t0, $t0, $t1
-	addi $sp, $sp, 4
-	lw $t1, 0($sp)
-	sw $t1, 0($t0)
-	lw $t0, -8($fp)
-	move $sp, $fp
-	lw $ra, -4($fp)
-	lw $fp, 0($fp)
-	jr $ra
-	li $t0, 0
-	move $sp, $fp
-	lw $ra, -4($fp)
-	lw $fp, 0($fp)
-	jr $ra
-fun_1:
-	sw $fp, 0($sp)
-	subi $sp, $sp, 4
-	sw $ra, 0($sp)
-	subi $sp, $sp, 4
-	addi $fp, $sp, 8
-	addi $sp, $sp, -8
 	li $t0, 1
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
@@ -160,7 +151,19 @@ fun_1:
 	lw $t1, 0($sp)
 	sle $t0, $t0, $t1
 	bnez $t0, __label_0
-	la $t0, fact
+	li $t0, 4
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	li $t0, 1
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	mul $t0, $t0, $t1
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	lw $t0, 8($fp)
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	add $t0, $t0, $t1
 	lw $t0, 0($t0)
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
@@ -176,35 +179,33 @@ fun_1:
 	li $t0, 4
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
-	li $t0, 0
+	li $t0, 1
 	addi $sp, $sp, 4
 	lw $t1, 0($sp)
 	mul $t0, $t0, $t1
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
-	la $t0, fact
-	lw $t0, 0($t0)
+	lw $t0, 8($fp)
 	addi $sp, $sp, 4
 	lw $t1, 0($sp)
 	add $t0, $t0, $t1
 	lw $t0, 0($t0)
+	lw $t0, 0($t0)
 	jalr $t0
 	addi $sp, $sp, 8
-	sw $t0, -8($fp)
-	lw $t0, -8($fp)
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
 	lw $t0, 4($fp)
 	addi $sp, $sp, 4
 	lw $t1, 0($sp)
 	mul $t0, $t0, $t1
-	sw $t0, -12($fp)
+	sw $t0, -8($fp)
 	b __label_1
 __label_0:
 	li $t0, 1
-	sw $t0, -12($fp)
+	sw $t0, -8($fp)
 __label_1:
-	lw $t0, -12($fp)
+	lw $t0, -8($fp)
 	move $sp, $fp
 	lw $ra, -4($fp)
 	lw $fp, 0($fp)
@@ -260,7 +261,7 @@ power_loop_guard:
 	subi $sp, $sp, 4
 	jr $ra
 .data
-call_result_2:
+closure_2:
 	.word 0
 closure_1:
 	.word 0

@@ -49,27 +49,11 @@ init_end:
 	li $t0, 6
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
-	li $t0, 4
-	sw $t0, 0($sp)
-	subi $sp, $sp, 4
-	li $t0, 0
-	addi $sp, $sp, 4
-	lw $t1, 0($sp)
-	mul $t0, $t0, $t1
-	sw $t0, 0($sp)
-	subi $sp, $sp, 4
 	la $t0, f_0
 	lw $t0, 0($t0)
-	addi $sp, $sp, 4
-	lw $t1, 0($sp)
-	add $t0, $t0, $t1
 	lw $t0, 0($t0)
 	jalr $t0
 	addi $sp, $sp, 8
-	la $t1, call_result_3
-	sw $t0, 0($t1)
-	la $t0, call_result_3
-	lw $t0, 0($t0)
 	la $t1, g_2
 	sw $t0, 0($t1)
 	la $t0, g_2
@@ -79,27 +63,11 @@ init_end:
 	li $t0, 7
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
-	li $t0, 4
-	sw $t0, 0($sp)
-	subi $sp, $sp, 4
-	li $t0, 0
-	addi $sp, $sp, 4
-	lw $t1, 0($sp)
-	mul $t0, $t0, $t1
-	sw $t0, 0($sp)
-	subi $sp, $sp, 4
 	la $t0, g_2
 	lw $t0, 0($t0)
-	addi $sp, $sp, 4
-	lw $t1, 0($sp)
-	add $t0, $t0, $t1
 	lw $t0, 0($t0)
 	jalr $t0
 	addi $sp, $sp, 8
-	la $t1, call_result_4
-	sw $t0, 0($t1)
-	la $t0, call_result_4
-	lw $t0, 0($t0)
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
 	jal print_int
@@ -137,7 +105,7 @@ fun_0:
 	li $t0, 4
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
-	li $t0, 1
+	li $t0, 2
 	addi $sp, $sp, 4
 	lw $t1, 0($sp)
 	mul $t0, $t0, $t1
@@ -153,6 +121,25 @@ fun_0:
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
 	li $t0, 0
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	mul $t0, $t0, $t1
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	lw $t0, -8($fp)
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	add $t0, $t0, $t1
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	sw $t1, 0($t0)
+	lw $t0, 4($fp)
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	li $t0, 4
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	li $t0, 1
 	addi $sp, $sp, 4
 	lw $t1, 0($sp)
 	mul $t0, $t0, $t1
@@ -185,7 +172,19 @@ fun_1:
 	lw $t0, 4($fp)
 	sw $t0, 0($sp)
 	subi $sp, $sp, 4
-	la $t0, x
+	li $t0, 4
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	li $t0, 1
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	mul $t0, $t0, $t1
+	sw $t0, 0($sp)
+	subi $sp, $sp, 4
+	lw $t0, 8($fp)
+	addi $sp, $sp, 4
+	lw $t1, 0($sp)
+	add $t0, $t0, $t1
 	lw $t0, 0($t0)
 	addi $sp, $sp, 4
 	lw $t1, 0($sp)
@@ -245,10 +244,6 @@ power_loop_guard:
 	subi $sp, $sp, 4
 	jr $ra
 .data
-call_result_4:
-	.word 0
-call_result_3:
-	.word 0
 g_2:
 	.word 0
 closure_1:

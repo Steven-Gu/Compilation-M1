@@ -56,8 +56,6 @@ let translate_program (p: Miniml.prog) =
           
       | Var(x) ->
         let var = convert_var x bvars in
-    Printf.printf "Variable %s is %s\n"
-      x (if VSet.mem x bvars then "bound" else "free");
         Var(var)
       
       | Uop (op, e) ->
@@ -69,7 +67,7 @@ let translate_program (p: Miniml.prog) =
       (* The range of 'x' in 'let x = e1 in e2' is the expression e2:
          add x in the bound variables when translating e2 *)
       | Let(x, e1, e2) ->
-        Let(x, crawl e1 bvars, crawl e2 (VSet.add x bvars))
+        Clj.Let(x, crawl e1 bvars, crawl e2 (VSet.add x bvars))
 
       | If(cond, e1, e2) ->
         Clj.If(crawl cond bvars, crawl e1 bvars, crawl e2 bvars)
@@ -83,49 +81,32 @@ let translate_program (p: Miniml.prog) =
             (this implies creating a new name with new_fname) *)
          (* return an expression that builds a closure *)
          let fname = new_fname () in
-         let body, fv = tr_expr e (VSet.add x bvars) in
+         let body, fv = tr_expr e (VSet.singleton x) in
          let fdef = Clj.{
            name = fname;
            param = x;
            body = body;
          } in
          fdefs := fdef :: !fdefs;
-         Clj.MkClj(fname, List.map (fun (v, i) -> Clj.CVar i) fv)
+         let lv = List.sort (fun (_, i1) (_, i2) -> compare i1 i2) fv in
+         Clj.MkClj(fname, List.map (fun (v, _) -> convert_var v bvars) lv)
 
 
       | Fix(f, _, e) ->
-        let fname = new_fname () in
-        let body, fv = tr_expr e (VSet.add f bvars) in
-        let fdef = Clj.{
-          name = fname;
-          param = f;
-          body = body;
-        } in
-        fdefs := fdef :: !fdefs;
-        Clj.MkClj(fname, List.map (fun (v, _) -> Clj.Name v) fv)
+        Clj.Fix(f, crawl e (VSet.add f bvars))
 
       | Cstr(cname, args) ->
         Clj.Cstr(cname, List.map (fun e -> crawl e bvars) args)
 
       | Match(e, cases) ->
         let te = crawl e bvars in
-        let rec translate_cases = function
-          | [] -> failwith "Non-exhaustive match cases"
-          | ((cname, vars), body) :: rest ->
-              let bvars_extended = List.fold_left (fun acc v -> VSet.add v acc) bvars vars in
-              let tbody = crawl body bvars_extended in
-              let bind_vars = 
-                List.fold_left2 
-                  (fun acc var expr -> Clj.Let(var, expr, acc))
-                  tbody
-                  vars
-                  (match te with
-                    | Clj.Cstr(c, args) when c = cname -> args
-                    | _ -> failwith "Pattern matching failure")
-              in
-              Clj.If(Clj.Bool(true), bind_vars, translate_cases rest)
+        let translate_case ((cname, args), body) =
+          let extended_bvars = List.fold_right VSet.add args bvars in
+          let tbody = crawl body extended_bvars in
+          ((cname, args), tbody)
         in
-        translate_cases cases
+        let tcases = List.map translate_case cases in
+        Clj.Match(te, tcases)
 
 
     in

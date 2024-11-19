@@ -75,30 +75,29 @@ let tr_expr e env =
          let set_fname = Imp.array_set (Imp.Var lv) (Imp.Int 0) (Imp.Addr fname) in
          let set_vars =
             List.mapi
-               (fun i var -> Imp.array_set (Imp.Var lv) (Imp.Int (i + 1)) (tr_var var env))
+               (fun i var -> Imp.array_set (Imp.Var lv) (Imp.Int (i + 1)) (
+                  match tr_var var env with
+                  | Imp.Var "closure" -> Imp.Var lv 
+                  | e -> e))
                vars
          in
-         Imp.(
-            alloc_instr :: set_fname :: set_vars, Imp.Var lv)
+         Imp.(alloc_instr :: set_fname :: set_vars, Imp.Var lv)
    
       | Clj.App(f, arg) ->
          let is1, tf = tr_expr f env in
          let is2, targ = tr_expr arg env in
-         let lv_result = new_var "call_result" in
          let call_instr =
             match tf with
-            | Imp.Var fname when String.starts_with ~prefix:"fun_" fname ->
+            | Imp.Addr fname ->
                Imp.Call(fname, [targ])
-            | Imp.Var closure_name -> 
-               Imp.PCall(
-                  Imp.Deref(Imp.array_get (Imp.Var closure_name) (Imp.Int 0)), 
-                  [targ; Imp.Var closure_name]
-               )
             | _ ->
-               failwith "Invalid function application: not a closure or direct function"
+               Imp.PCall(
+                  Imp.Deref(Imp.Deref tf),
+                  [targ; tf]
+               )
          in
-         Imp.(is1 @ is2 @ [Set(lv_result, call_instr)], Var lv_result)
-           
+         is1 @ is2, call_instr
+         
            
 
       | Clj.If(cond, e1, e2) ->
@@ -119,10 +118,8 @@ let tr_expr e env =
          Imp.(is1 @ [Set(lv, t1)] @ is2, t2)
       
       | Clj.Fix(f, body) ->
-         let lv = new_var f in
-         let is_body, tbody = tr_expr body (STbl.add f lv env) in
-         Imp.(is_body @ [Set(lv, tbody)], Var lv)
-      
+         let is_body, tbody = tr_expr body (STbl.add f "closure" env) in
+         Imp.(is_body, tbody)
       
       | _ ->
          failwith "todo"
